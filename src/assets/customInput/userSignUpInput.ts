@@ -1,0 +1,59 @@
+type FormKeys =
+    | "fName"
+    | "lName"
+    | "email"
+    | "phone"
+    | "password"
+    | "confirmPassword";
+
+type Input = {
+    label: string;
+    name: FormKeys;
+    type?: "text" | "number" | "password";
+    required?: boolean;
+    placeholder: string;
+};
+
+export const customInputs: Input[] = [
+    {
+        label: "First Name*",
+        name: "fName",
+        placeholder: "John",
+        required: true,
+        type: "text",
+    },
+    {
+        label: "Last Name*",
+        name: "lName",
+        placeholder: "Doe",
+        required: true,
+        type: "text",
+    },
+    {
+        label: "Email*",
+        name: "email",
+        placeholder: "johndoe@example.com",
+        required: true,
+        type: "text",
+    },
+    {
+        label: "Phone Number",
+        name: "phone",
+        placeholder: "04XXXXXXXX",
+        type: "number",
+    },
+    {
+        label: "Password*",
+        name: "password",
+        placeholder: "Enter a password",
+        type: "password",
+        required: true,
+    },
+    {
+        label: "Confirm Password*",
+        name: "confirmPassword",
+        placeholder: "Confirm your passowrd",
+        type: "password",
+        required: true,
+    },
+];
