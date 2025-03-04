@@ -6,7 +6,6 @@ import { signUpUserAPI } from "../../services/authApi";
 
 import { useState } from "react";
 import { HashLoader } from "react-spinners";
-import { toast } from "react-toastify";
 
 function SignUp() {
     const { form, handleChange, resetForm, passwordErrors } = useForm({
@@ -28,20 +27,13 @@ function SignUp() {
         setLoading(true);
 
         try {
-            const result = await signUpUserAPI(form);
-
-            console.log(result);
+            const { data } = await signUpUserAPI(form);
             setLoading(false);
-            resetForm();
-            toast.success("Account created successfully.", {
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                progress: undefined,
-            });
+            // if we get the success data then only reset the form
+            data && resetForm();
         } catch (error) {
-            console.error(error);
+            setLoading(false);
+            return;
         }
     };
 

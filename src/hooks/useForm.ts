@@ -3,7 +3,7 @@ import { validatePassword } from "../utils/validatePassword";
 
 const handleOnChange = <T>(
     e: React.ChangeEvent<HTMLInputElement>,
-    form: T,
+
     setForm: React.Dispatch<React.SetStateAction<T>>
 ) => {
     const { name, value } = e.target;
@@ -38,7 +38,7 @@ export const useForm = <T extends Record<string, any>>(initialState: T) => {
             ) {
                 setPasswordTouched(true);
             }
-            handleOnChange(e, form, setForm);
+            handleOnChange(e, setForm);
         },
         [form]
     );
