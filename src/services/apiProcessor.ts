@@ -22,9 +22,10 @@ export const apiProcessor = async ({ url, method, payload }: IApi) => {
             data: payload,
             // headers,
         });
+        console.log(data);
 
         data &&
-            toast.success("Account created successfully.", {
+            toast.success(data.message, {
                 autoClose: 3000,
                 closeOnClick: true,
                 pauseOnHover: false,

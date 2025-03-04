@@ -15,6 +15,7 @@ import {
     ReviewsPage,
     SignIn,
     SignUp,
+    VerifyUser,
     UserPage,
 } from "../pages";
 
@@ -26,6 +27,7 @@ export default function AppRoutes() {
                 <Route index element={<HomePage />} />
                 <Route path="signup" element={<SignUp />} />
                 <Route path="login" element={<SignIn />} />
+                <Route path="activate-user" element={<VerifyUser />} />
                 <Route path="forget-password" element={<ForgotPassword />} />
                 <Route path="books" element={<BookLandingPage />} />
             </Route>

@@ -27,10 +27,10 @@ function SignUp() {
         setLoading(true);
 
         try {
-            const { data } = await signUpUserAPI(form);
+            const res = await signUpUserAPI(form);
             setLoading(false);
             // if we get the success data then only reset the form
-            data && resetForm();
+            res && resetForm();
         } catch (error) {
             setLoading(false);
             return;

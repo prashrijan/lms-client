@@ -13,3 +13,12 @@ export const signUpUserAPI = async (payload: any) => {
     });
     return result;
 };
+
+export const verifyUser = async (payload: any) => {
+    const result = await apiProcessor({
+        url: AUTH_API_ENDPOINT + "/activate-user",
+        method: HTTPMethods.POST,
+        payload,
+    });
+    return result;
+};

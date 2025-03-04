@@ -44,7 +44,6 @@ export const useForm = <T extends Record<string, any>>(initialState: T) => {
     );
 
     const resetForm = useCallback(() => {
-        console.log("I am called");
         setForm({ ...initialState });
         setPasswordTouched(false);
         setPasswordErrors([]);
