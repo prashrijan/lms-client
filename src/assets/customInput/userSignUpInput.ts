@@ -1,4 +1,4 @@
-type FormKeys =
+type SinUpFormKeys =
     | "fName"
     | "lName"
     | "email"
@@ -6,15 +6,24 @@ type FormKeys =
     | "password"
     | "confirmPassword";
 
-type Input = {
+type SignInFormKeys = "email" | "password";
+
+type SignUpInput = {
     label: string;
-    name: FormKeys;
-    type?: "text" | "number" | "password";
+    name: SinUpFormKeys;
+    type: "text" | "number" | "password";
     required?: boolean;
     placeholder: string;
 };
 
-export const customInputs: Input[] = [
+type SignInInput = {
+    label: string;
+    name: SignInFormKeys;
+    type: "text" | "password";
+    required?: boolean;
+    placeholder: string;
+};
+export const signUpInputs: SignUpInput[] = [
     {
         label: "First Name*",
         name: "fName",
@@ -55,5 +64,22 @@ export const customInputs: Input[] = [
         placeholder: "Confirm your passowrd",
         type: "password",
         required: true,
+    },
+];
+
+export const signInInputs: SignInInput[] = [
+    {
+        label: "Email",
+        name: "email",
+        type: "text",
+        required: true,
+        placeholder: "johndoe@example.com",
+    },
+    {
+        label: "Password",
+        name: "password",
+        type: "password",
+        required: true,
+        placeholder: "Enter your password",
     },
 ];

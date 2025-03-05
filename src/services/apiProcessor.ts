@@ -47,7 +47,6 @@ export const apiProcessor = async ({ url, method, payload }: IApi) => {
                 pauseOnHover: false,
                 progress: undefined,
             });
-            return errorMessage;
         }
     }
 };

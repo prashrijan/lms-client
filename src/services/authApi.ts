@@ -22,3 +22,12 @@ export const verifyUser = async (payload: any) => {
     });
     return result;
 };
+
+export const signInUserApi = async (payload: any) => {
+    const result = await apiProcessor({
+        url: AUTH_API_ENDPOINT + "/login",
+        method: HTTPMethods.POST,
+        payload,
+    });
+    return result;
+};

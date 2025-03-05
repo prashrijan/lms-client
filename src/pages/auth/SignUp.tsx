@@ -1,6 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import Input from "../../components/input/Input";
-import { customInputs } from "../../assets/customInput/userSignUpInput";
+import { signUpInputs } from "../../assets/customInput/userSignUpInput";
 import { useForm } from "../../hooks/useForm";
 import { signUpUserAPI } from "../../services/authApi";
 
@@ -51,7 +51,7 @@ function SignUp() {
                         Join Readify. Your one stop Library
                     </h2>
                     <hr />
-                    {customInputs.map((input) => (
+                    {signUpInputs.map((input) => (
                         <Input
                             key={input.name}
                             {...input}
