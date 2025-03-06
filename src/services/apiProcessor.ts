@@ -12,19 +12,37 @@ interface IApi {
     url: string;
     method: HTTPMethods;
     payload?: any;
+    showToast?: boolean;
+    isPrivate?: boolean;
 }
 
-export const apiProcessor = async ({ url, method, payload }: IApi) => {
+type token = string | null;
+
+const getAccessToken = (): token => {
+    return sessionStorage.getItem("accessToken");
+};
+export const apiProcessor = async ({
+    url,
+    method,
+    payload,
+    showToast = true,
+    isPrivate = false,
+}: IApi) => {
     try {
+        const headers: { authorization?: token } = {};
+
+        if (isPrivate) {
+            headers.authorization = getAccessToken();
+        }
         const { data } = await axios({
             url,
             method,
             data: payload,
-            // headers,
+            headers,
         });
-        console.log(data);
 
         data &&
+            showToast &&
             toast.success(data.message, {
                 autoClose: 3000,
                 closeOnClick: true,

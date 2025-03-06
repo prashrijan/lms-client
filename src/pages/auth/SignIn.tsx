@@ -5,11 +5,15 @@ import { Link } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { signInUserApi } from "../../services/authApi";
 import { HashLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store/store"; // Adjust the path as necessary
+import { fetchUserAction } from "../../features/user/userAction";
 
 function SignIn() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -23,10 +27,18 @@ function SignIn() {
             setLoading(true);
             try {
                 const { data } = await signInUserApi(form);
-                console.log(data);
+
+                if (data?.accessToken && data?.refreshAccessToken) {
+                    sessionStorage.setItem("accessToken", data.accessToken);
+                    localStorage.setItem(
+                        "refreshToken",
+                        data.refreshAccessToken
+                    );
+                }
+
                 setLoading(false);
-                sessionStorage.setItem("accessToken", data.accessToken);
-                localStorage.setItem("refreshToken", data.refreshAccessToken);
+
+                dispatch(fetchUserAction());
 
                 // get user and redirecting to dashboard
             } catch (error) {
