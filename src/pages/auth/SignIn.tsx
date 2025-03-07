@@ -1,19 +1,29 @@
 import { Button, Form } from "react-bootstrap";
 import Input from "../../components/input/Input";
 import { signInInputs } from "../../assets/customInput/userSignUpInput";
-import { Link } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { signInUserApi } from "../../services/authApi";
 import { HashLoader } from "react-spinners";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store/store"; // Adjust the path as necessary
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store/store";
 import { fetchUserAction } from "../../features/user/userAction";
+import { User } from "../../types/types";
 
 function SignIn() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const { user } = useSelector((state: RootState) => state.userData) as {
+        user: User;
+    };
+
+    // if the user exists navigate to the user page
+    useEffect(() => {
+        user?._id && navigate("/user");
+    }, [user?._id]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -38,6 +48,7 @@ function SignIn() {
 
                 setLoading(false);
 
+                // dispatch a callback action
                 dispatch(fetchUserAction());
 
                 // get user and redirecting to dashboard

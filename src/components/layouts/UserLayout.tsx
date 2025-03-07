@@ -4,8 +4,16 @@ import Header from "../header/Header";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
 import AuthRoute from "../auth/AuthRoute";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
+import { User } from "../../types/types";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 const UserLayout = () => {
+    const { user } = useSelector((state: RootState) => state.userData) as {
+        user: User;
+    };
+
     return (
         <AuthRoute>
             <Header />
@@ -19,7 +27,10 @@ const UserLayout = () => {
                     >
                         <div className="p-3">
                             <div>Welcome Back</div>
-                            <h4>Prashrijan Shrestha</h4>
+                            <h4>
+                                {capitalizeFirstLetter(user.fName)}{" "}
+                                {capitalizeFirstLetter(user.lName)}
+                            </h4>
                         </div>
                         <hr />
                         <Sidebar />

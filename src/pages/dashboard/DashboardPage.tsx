@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-function DashboardPage({}: Props) {
+function DashboardPage() {
     return <div>DashboardPage</div>;
 }
 

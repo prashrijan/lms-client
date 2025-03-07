@@ -1,28 +1,5 @@
-type SinUpFormKeys =
-    | "fName"
-    | "lName"
-    | "email"
-    | "phone"
-    | "password"
-    | "confirmPassword";
+import { SignUpInput, SignInInput } from "../../types/types";
 
-type SignInFormKeys = "email" | "password";
-
-type SignUpInput = {
-    label: string;
-    name: SinUpFormKeys;
-    type: "text" | "number" | "password";
-    required?: boolean;
-    placeholder: string;
-};
-
-type SignInInput = {
-    label: string;
-    name: SignInFormKeys;
-    type: "text" | "password";
-    required?: boolean;
-    placeholder: string;
-};
 export const signUpInputs: SignUpInput[] = [
     {
         label: "First Name*",
