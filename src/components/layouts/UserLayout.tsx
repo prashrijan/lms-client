@@ -13,6 +13,7 @@ const UserLayout = () => {
     const { user } = useSelector((state: RootState) => state.userData) as {
         user: User;
     };
+    console.log(user);
 
     return (
         <AuthRoute>

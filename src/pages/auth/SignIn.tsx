@@ -7,7 +7,7 @@ import { signInUserApi } from "../../services/authApi";
 import { HashLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store/store";
-import { fetchUserAction } from "../../features/user/userAction";
+import { autoLoginUser, fetchUserAction } from "../../features/user/userAction";
 import { User } from "../../types/types";
 
 function SignIn() {
@@ -22,8 +22,9 @@ function SignIn() {
 
     // if the user exists navigate to the user page
     useEffect(() => {
-        user?._id && navigate("/user");
-    }, [user?._id]);
+        console.log(user);
+        user?._id ? navigate("/user") : dispatch(autoLoginUser());
+    }, [user?._id, navigate, dispatch]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();

@@ -35,3 +35,5 @@ export type SignInInput = {
     required?: boolean;
     placeholder: string;
 };
+
+export type token = string | null;

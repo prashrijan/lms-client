@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { token } from "../types/types";
 
 export enum HTTPMethods {
     GET = "GET",
@@ -15,8 +16,6 @@ interface IApi {
     showToast?: boolean;
     isPrivate?: boolean;
 }
-
-type token = string | null;
 
 const getAccessToken = (): token => {
     return sessionStorage.getItem("accessToken");
