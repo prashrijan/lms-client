@@ -15,24 +15,36 @@ interface IApi {
     payload?: any;
     showToast?: boolean;
     isPrivate?: boolean;
+    isRefreshToken?: boolean;
 }
 
 const getAccessToken = (): token => {
     return sessionStorage.getItem("accessToken");
 };
+const getRefreshToken = (): token => {
+    return localStorage.getItem("refreshToken");
+};
+
 export const apiProcessor = async ({
     url,
     method,
     payload,
     showToast = true,
     isPrivate = false,
+    isRefreshToken = false,
 }: IApi) => {
     try {
         const headers: { authorization?: token } = {};
-
-        if (isPrivate) {
-            headers.authorization = getAccessToken();
+        let token: token = null;
+        if (!isPrivate) {
+            token = null;
+        } else if (isRefreshToken) {
+            token = getRefreshToken();
+        } else {
+            token = getAccessToken();
         }
+
+        headers.authorization = token;
         const { data } = await axios({
             url,
             method,

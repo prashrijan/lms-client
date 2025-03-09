@@ -31,3 +31,13 @@ export const signInUserApi = async (payload: any) => {
     });
     return result;
 };
+
+export const refreshTokenApi = async () => {
+    return await apiProcessor({
+        url: AUTH_API_ENDPOINT + "/refresh-token",
+        method: HTTPMethods.GET,
+        showToast: false,
+        isPrivate: true,
+        isRefreshToken: true,
+    });
+};

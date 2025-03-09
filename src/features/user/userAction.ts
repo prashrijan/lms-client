@@ -3,6 +3,7 @@ import { setUser } from "./userSlice";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../../redux/store/store.ts";
 import { token } from "../../types/types.ts";
+import { refreshTokenApi } from "../../services/authApi.ts";
 
 // call back function that will be dispatched when logging in
 export const fetchUserAction =
@@ -16,7 +17,7 @@ export const fetchUserAction =
 
 // autlogoin feature
 export const autoLoginUser =
-    (): ThunkAction<void, RootState, unknown, any> => (dispatch) => {
+    (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
         const accessToken: token = sessionStorage.getItem("accessToken");
 
         // if we have accesstoken fetch user profile
@@ -27,7 +28,8 @@ export const autoLoginUser =
 
         const refreshToken: token = localStorage.getItem("refreshToken");
         if (refreshToken) {
-            // fetch access token adn set in session storage
-            // dispatch fetchUserAction()
+            const { data } = await refreshTokenApi();
+            sessionStorage.setItem("accessToken", data);
+            dispatch(fetchUserAction());
         }
     };

@@ -20,10 +20,22 @@ function SignIn() {
         user: User;
     };
 
-    // if the user exists navigate to the user page
+    // if the user exists navigate to the user page else autoLogin
     useEffect(() => {
-        console.log(user);
-        user?._id ? navigate("/user") : dispatch(autoLoginUser());
+        const performAutoLogin = () => {
+            setLoading(true);
+            try {
+                dispatch(autoLoginUser());
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (!user?._id) {
+            performAutoLogin();
+        } else {
+            navigate("/user");
+        }
     }, [user?._id, navigate, dispatch]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
