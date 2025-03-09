@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { token } from "../types/types";
+import { refreshTokenApi } from "./authApi";
 
 export enum HTTPMethods {
     GET = "GET",
@@ -32,7 +33,7 @@ export const apiProcessor = async ({
     showToast = true,
     isPrivate = false,
     isRefreshToken = false,
-}: IApi) => {
+}: IApi): Promise<any> => {
     try {
         const headers: { authorization?: token } = {};
         let token: token = null;
@@ -70,6 +71,25 @@ export const apiProcessor = async ({
                 error.response.data?.message ||
                 error.message ||
                 "An error occured please try again.";
+
+            if (error.status == 500 && errorMessage == "jwt expired") {
+                // call api to get new accessJWT
+                const { data } = await refreshTokenApi();
+
+                data && sessionStorage.setItem("accessToken", data);
+                return apiProcessor({
+                    url,
+                    method,
+                    payload,
+                    showToast,
+                    isPrivate,
+                    isRefreshToken,
+                });
+            } else {
+                sessionStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
+            }
+
             toast.error(errorMessage, {
                 autoClose: 3000,
                 closeOnClick: true,
@@ -77,5 +97,6 @@ export const apiProcessor = async ({
                 progress: undefined,
             });
         }
+        return error;
     }
 };
