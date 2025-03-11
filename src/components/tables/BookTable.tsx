@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBooksAdminAction } from "../../features/books/bookAction";
 import { RootState } from "../../redux/store/store";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function BookTable() {
     const dispatch = useDispatch<any>();
@@ -80,12 +81,15 @@ function BookTable() {
                                     </p>
                                 </td>
                                 <td>
-                                    <Button
-                                        variant="outline-dark"
-                                        className="me-2"
-                                    >
-                                        Edit
-                                    </Button>
+                                    <Link to={`/user/edit-book/${book._id}`}>
+                                        <Button
+                                            variant="outline-dark"
+                                            className="me-2"
+                                        >
+                                            Edit
+                                        </Button>
+                                    </Link>
+
                                     <Button variant="outline-danger">
                                         Delete
                                     </Button>

@@ -10,7 +10,7 @@ const Books = () => {
         <div>
             <Headings pageTitle="Book List" />
             <div className="text-end mb-5">
-                <Link to="/user/edit-book">
+                <Link to="/user/new-book">
                     <Button variant="primary">
                         <IoAddCircleOutline /> Add New Book
                     </Button>

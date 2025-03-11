@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
-        <Stack gap={3}>
+        <Stack gap={3} className="pb-3">
             <div className="p-2">
                 <Link
                     className="nav-link d-flex align-items-center gap-1"
