@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-function NewBookPage({}: Props) {
+function NewBookPage() {
     return <div>NewBookPage</div>;
 }
 

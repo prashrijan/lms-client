@@ -1,6 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
-import Footer from "../footer/Footer";
-import Header from "../header/Header";
+
 import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/Sidebar";
 import AuthRoute from "../auth/AuthRoute";
@@ -8,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { User } from "../../types/types";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import { Header, Footer } from "../../components/index";
 
 const UserLayout = () => {
     const { user } = useSelector((state: RootState) => state.userData) as {

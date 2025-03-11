@@ -37,12 +37,12 @@ export const apiProcessor = async ({
     try {
         const headers: { authorization?: token } = {};
         let token: token = null;
-        if (!isPrivate) {
-            token = null;
-        } else if (isRefreshToken) {
-            token = getRefreshToken();
-        } else {
-            token = getAccessToken();
+        if (isPrivate) {
+            if (isRefreshToken) {
+                token = getRefreshToken();
+            } else {
+                token = getAccessToken();
+            }
         }
 
         headers.authorization = token;
@@ -72,12 +72,12 @@ export const apiProcessor = async ({
                 error.message ||
                 "An error occured please try again.";
 
-            if (error.status == 500 && errorMessage == "jwt expired") {
+            if (error.status == 500 || errorMessage == "jwt expired") {
                 // call api to get new accessJWT
                 const { data } = await refreshTokenApi();
 
                 data && sessionStorage.setItem("accessToken", data);
-                return apiProcessor({
+                return await apiProcessor({
                     url,
                     method,
                     payload,

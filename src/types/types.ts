@@ -18,6 +18,8 @@ export type SinUpFormKeys =
     | "password"
     | "confirmPassword";
 
+type EditFormKeys = "title" | "author" | "publishedYear" | "thumbnail" | "isbn";
+
 export type SignInFormKeys = "email" | "password";
 
 export type SignUpInput = {
@@ -37,3 +39,32 @@ export type SignInInput = {
 };
 
 export type token = string | null;
+
+export type HeadingsProps = {
+    pageTitle: string;
+};
+
+export type Books = {
+    _id: string;
+    title: string;
+    author: string;
+    genre: string;
+    publishedYear: number;
+    isbn: string;
+    thumbnail: string;
+    description: string;
+    isAvailable: boolean;
+    expectedAvailable: Date | null;
+    averageRating: number;
+    createdAt: Date;
+    updatedAt: Date;
+    __v: number;
+};
+
+export type EditSignUpInputs = {
+    label: string;
+    name: EditFormKeys;
+    type: "text" | "number" | "password";
+    required?: boolean;
+    placeholder?: string;
+};

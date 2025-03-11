@@ -37,7 +37,7 @@ export default function AppRoutes() {
                 <Route index element={<DashboardPage />} />
                 <Route path="books" element={<Books />} />
                 <Route path="new-book" element={<NewBookPage />} />
-                <Route path="/user/edit-book" element={<EditBookPage />} />
+                <Route path="edit-book" element={<EditBookPage />} />
                 <Route path="book-landing" element={<BookLandingPage />} />
                 <Route path="reviews" element={<ReviewsPage />} />
                 <Route path="user-list" element={<UserPage />} />

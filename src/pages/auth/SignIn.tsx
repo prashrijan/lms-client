@@ -2,41 +2,36 @@ import { Button, Form } from "react-bootstrap";
 import Input from "../../components/input/Input";
 import { signInInputs } from "../../assets/customInput/userSignUpInput";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { signInUserApi } from "../../services/authApi";
 import { HashLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { autoLoginUser, fetchUserAction } from "../../features/user/userAction";
 import { User } from "../../types/types";
+import { setLoading } from "../../features/user/userSlice";
 
 function SignIn() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const { user } = useSelector((state: RootState) => state.userData) as {
+    const { user, isLoading } = useSelector(
+        (state: RootState) => state.userData
+    ) as {
         user: User;
+        isLoading: boolean;
     };
 
     // if the user exists navigate to the user page else autoLogin
     useEffect(() => {
-        const performAutoLogin = () => {
-            setLoading(true);
-            try {
-                dispatch(autoLoginUser());
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (!user?._id) {
-            performAutoLogin();
-        } else {
+        if (!user?._id && !isLoading) {
+            dispatch(autoLoginUser());
+        } else if (user?._id) {
             navigate("/user");
         }
-    }, [user?._id, navigate, dispatch]);
+    }, [user?._id, navigate, dispatch, isLoading]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -47,8 +42,8 @@ function SignIn() {
                 password: passwordRef.current.value,
             };
 
-            setLoading(true);
             try {
+                dispatch(setLoading(true));
                 const { data } = await signInUserApi(form);
 
                 if (data?.accessToken && data?.refreshAccessToken) {
@@ -59,23 +54,23 @@ function SignIn() {
                     );
                 }
 
-                setLoading(false);
-
                 // dispatch a callback action
                 dispatch(fetchUserAction());
 
                 // get user and redirecting to dashboard
             } catch (error) {
                 console.error(error);
-                setLoading(false);
+
                 return;
+            } finally {
+                dispatch(setLoading(false));
             }
         } else {
             alert("Please enter both fields");
         }
     };
 
-    return loading ? (
+    return isLoading ? (
         <HashLoader />
     ) : (
         <Form

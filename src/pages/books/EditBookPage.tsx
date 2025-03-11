@@ -1,9 +1,13 @@
-import React from "react";
+import { Headings } from "../../components";
+import EditBookForm from "../../components/books/EditBookForm";
 
-type Props = {};
-
-function EditBookPage({}: Props) {
-    return <div>EditBookPage</div>;
+function EditBookPage() {
+    return (
+        <div>
+            <Headings pageTitle="Edit Book" />
+            <EditBookForm />
+        </div>
+    );
 }
 
 export default EditBookPage;
