@@ -9,29 +9,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { autoLoginUser, fetchUserAction } from "../../features/user/userAction";
 import { User } from "../../types/types";
-import { setLoading } from "../../features/user/userSlice";
 
 function SignIn() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-
+    const loadingRef = useRef<boolean>(false);
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const { user, isLoading } = useSelector(
-        (state: RootState) => state.userData
-    ) as {
+    const { user } = useSelector((state: RootState) => state.userData) as {
         user: User;
-        isLoading: boolean;
     };
 
     // if the user exists navigate to the user page else autoLogin
     useEffect(() => {
-        if (!user?._id && !isLoading) {
-            dispatch(autoLoginUser());
-        } else if (user?._id) {
-            navigate("/user");
+        loadingRef.current = true;
+        user._id ? navigate("/user") : dispatch(autoLoginUser());
+        if (
+            sessionStorage.getItem("accessToken") ||
+            localStorage.getItem("refreshToken")
+        ) {
+            setTimeout(() => {
+                loadingRef.current = false;
+            }, 2000);
+        } else {
+            console.log("here");
+            loadingRef.current = false;
         }
-    }, [user?._id, navigate, dispatch, isLoading]);
+    }, [user?._id, navigate, dispatch]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -43,7 +47,6 @@ function SignIn() {
             };
 
             try {
-                dispatch(setLoading(true));
                 const { data } = await signInUserApi(form);
 
                 if (data?.accessToken && data?.refreshAccessToken) {
@@ -62,15 +65,14 @@ function SignIn() {
                 console.error(error);
 
                 return;
-            } finally {
-                dispatch(setLoading(false));
             }
         } else {
             alert("Please enter both fields");
         }
     };
 
-    return isLoading ? (
+    console.log(loadingRef);
+    return loadingRef.current ? (
         <HashLoader />
     ) : (
         <Form

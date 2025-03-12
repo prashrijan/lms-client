@@ -1,16 +1,17 @@
 import { fetchUserApi } from "./userApi";
-import { setLoading, setUser } from "./userSlice";
+
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../../redux/store/store.ts";
 import { token } from "../../types/types.ts";
 import { refreshTokenApi } from "../../services/authApi.ts";
+import { setUser } from "./userSlice.ts";
 
 // call back function that will be dispatched when logging in
 export const fetchUserAction =
     (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
         try {
             // call api
-            dispatch(setLoading(true));
+
             const { success, data } = await fetchUserApi();
 
             // dispatch set user action with data from the api
@@ -18,8 +19,6 @@ export const fetchUserAction =
         } catch (error) {
             console.log(error);
             return error;
-        } finally {
-            dispatch(setLoading(false));
         }
     };
 
@@ -27,7 +26,6 @@ export const fetchUserAction =
 export const autoLoginUser =
     (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
         try {
-            dispatch(setLoading(true));
             const accessToken: token = sessionStorage.getItem("accessToken");
 
             if (accessToken) {
@@ -45,7 +43,5 @@ export const autoLoginUser =
             }
         } catch (error) {
             console.error("Auto-login failed", error);
-        } finally {
-            dispatch(setLoading(false));
         }
     };
