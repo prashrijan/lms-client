@@ -6,11 +6,11 @@ const handleOnChange = <T>(
 
     setForm: React.Dispatch<React.SetStateAction<T>>
 ) => {
-    const { name, value } = e.target;
+    let { name, value, checked } = e.target;
 
     setForm((prevForm) => ({
         ...prevForm,
-        [name]: value,
+        [name]: name === "isAvailable" ? checked : value,
     }));
 };
 

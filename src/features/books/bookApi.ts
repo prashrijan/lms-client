@@ -13,3 +13,17 @@ export const fetchBookApi = async (): Promise<any> => {
     });
     return data;
 };
+
+// update book
+export const editBookApi = async (
+    payload: any,
+    id: string | undefined
+): Promise<any> => {
+    const res = await apiProcessor({
+        url: bookEndPoint + `/update-book/${id}`,
+        method: HTTPMethods.POST,
+        isPrivate: true,
+        payload,
+    });
+    return res;
+};

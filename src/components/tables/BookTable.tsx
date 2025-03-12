@@ -22,7 +22,7 @@ function BookTable() {
     return (
         <>
             <div className="d-flex justify-content-between">
-                <p>
+                <div>
                     {books.length ? (
                         `${books.length} ${
                             books.length == 1 ? "Book" : "Books"
@@ -30,7 +30,7 @@ function BookTable() {
                     ) : (
                         <p className="text-danger">No books found!</p>
                     )}
-                </p>
+                </div>
                 <Input
                     type="text"
                     placeholder={
