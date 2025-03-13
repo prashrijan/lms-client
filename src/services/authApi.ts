@@ -41,3 +41,11 @@ export const refreshTokenApi = async () => {
         isRefreshToken: true,
     });
 };
+
+export const logoutUserApi = async () => {
+    return await apiProcessor({
+        url: AUTH_API_ENDPOINT + "/logout",
+        method: HTTPMethods.GET,
+        isPrivate: true,
+    });
+};

@@ -4,15 +4,26 @@ import logo from "../../assets/readify-logo.png";
 import { IoHome } from "react-icons/io5";
 import { FaSignInAlt } from "react-icons/fa";
 import { HiOutlineLogin, HiOutlineLogout } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import { User } from "../../types/types";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { logoutUserApi } from "../../services/authApi";
+import { setUser } from "../../features/user/userSlice";
 
 function Header() {
     const { user } = useSelector((state: RootState) => state.userData) as {
         user: User;
     };
+    const dispatch = useDispatch<any>();
+
+    const handleLogout = (): void => {
+        logoutUserApi();
+        sessionStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        dispatch(setUser({}));
+    };
+
     return (
         <Navbar expand="md" className="bg-dark bg-gradient" variant="dark">
             <Container>
@@ -41,7 +52,8 @@ function Header() {
                                 </Link>
                                 <Link
                                     className="nav-link d-flex align-items-center gap-1"
-                                    to="/logout"
+                                    to="/"
+                                    onClick={handleLogout}
                                 >
                                     <HiOutlineLogout />
                                     Logout
