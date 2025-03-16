@@ -24,5 +24,5 @@ export const updateBookAction =
     ): ThunkAction<void, RootState, unknown, any> =>
     async (dispatch) => {
         const { data } = await editBookApi(payload, id);
-        data && dispatch(addBooks(data));
+        data && dispatch(getBooksAdminAction());
     };
