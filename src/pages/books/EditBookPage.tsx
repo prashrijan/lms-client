@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function EditBookPage() {
     return (
-        <div>
+        <div className="py-3">
             <Headings pageTitle="Edit Book" />
             <Link to={-1 as any}>
                 <Button variant="secondary" className="mb-4">

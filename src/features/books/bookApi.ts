@@ -38,3 +38,14 @@ export const editBookApi = async (
     });
     return res;
 };
+
+// delete book
+export const deleteBookApi = async (id: string | undefined) => {
+    const res = await apiProcessor({
+        url: bookEndPoint + `/delete-book/${id}`,
+        method: HTTPMethods.DELETE,
+        isPrivate: true,
+    });
+
+    return res;
+};

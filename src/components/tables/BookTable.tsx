@@ -3,7 +3,10 @@ import { Button, Table } from "react-bootstrap";
 import { Books } from "../../types/types";
 import Input from "../input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooksAdminAction } from "../../features/books/bookAction";
+import {
+    deleteBookAction,
+    getBooksAdminAction,
+} from "../../features/books/bookAction";
 import { RootState } from "../../redux/store/store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -18,6 +21,11 @@ function BookTable() {
     useEffect(() => {
         dispatch(getBooksAdminAction());
     }, []);
+
+    const handleDelete = (id: string): void => {
+        console.log(id);
+        dispatch(deleteBookAction(id));
+    };
 
     return (
         <>
@@ -90,7 +98,10 @@ function BookTable() {
                                         </Button>
                                     </Link>
 
-                                    <Button variant="outline-danger">
+                                    <Button
+                                        variant="outline-danger"
+                                        onClick={() => handleDelete(book._id)}
+                                    >
                                         Delete
                                     </Button>
                                 </td>
