@@ -15,6 +15,7 @@ function EditBookForm() {
         author: "",
         thumbnail: "",
         publishedYear: "",
+        genre: "",
         isbn: "",
         isAvailable: false,
     });
@@ -36,6 +37,7 @@ function EditBookForm() {
                 author: bookToEdit.author,
                 thumbnail: bookToEdit.thumbnail,
                 publishedYear: bookToEdit.publishedYear as any,
+                genre: bookToEdit.genre,
                 isbn: bookToEdit.isbn,
                 isAvailable: bookToEdit.isAvailable,
             });
@@ -44,7 +46,7 @@ function EditBookForm() {
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        console.log(form);
+
         dispatch(updateBookAction(form, id));
     };
 

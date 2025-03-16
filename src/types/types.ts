@@ -18,7 +18,13 @@ export type SinUpFormKeys =
     | "password"
     | "confirmPassword";
 
-type EditFormKeys = "title" | "author" | "publishedYear" | "thumbnail" | "isbn";
+type EditFormKeys =
+    | "title"
+    | "author"
+    | "genre"
+    | "publishedYear"
+    | "thumbnail"
+    | "isbn";
 
 export type SignInFormKeys = "email" | "password";
 

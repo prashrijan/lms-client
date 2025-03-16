@@ -17,6 +17,11 @@ export const editSignUpInputs: EditSignUpInputs[] = [
         type: "text",
     },
     {
+        label: "Genre",
+        name: "genre",
+        type: "text",
+    },
+    {
         label: "ISBN",
         name: "isbn",
         type: "text",
