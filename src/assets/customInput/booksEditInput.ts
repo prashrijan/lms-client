@@ -1,6 +1,6 @@
-import { EditSignUpInputs } from "../../types/types";
+import { BookInputs } from "../../types/types";
 
-export const editSignUpInputs: EditSignUpInputs[] = [
+export const bookInputs: BookInputs[] = [
     {
         label: "Title",
         name: "title",
@@ -29,6 +29,11 @@ export const editSignUpInputs: EditSignUpInputs[] = [
     {
         label: "Published Year",
         name: "publishedYear",
+        type: "text",
+    },
+    {
+        label: "Description",
+        name: "description",
         type: "text",
     },
 ];

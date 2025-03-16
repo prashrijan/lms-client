@@ -18,13 +18,14 @@ export type SinUpFormKeys =
     | "password"
     | "confirmPassword";
 
-type EditFormKeys =
+type BookFormKeys =
     | "title"
     | "author"
     | "genre"
     | "publishedYear"
     | "thumbnail"
-    | "isbn";
+    | "isbn"
+    | "description";
 
 export type SignInFormKeys = "email" | "password";
 
@@ -67,9 +68,9 @@ export type Books = {
     __v: number;
 };
 
-export type EditSignUpInputs = {
+export type BookInputs = {
     label: string;
-    name: EditFormKeys;
+    name: BookFormKeys;
     type: "text" | "number" | "password";
     required?: boolean;
     placeholder?: string;

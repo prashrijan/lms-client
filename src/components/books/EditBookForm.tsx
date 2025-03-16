@@ -1,8 +1,8 @@
 import { Button, Form } from "react-bootstrap";
-import { editSignUpInputs } from "../../assets/customInput/booksEditInput";
+import { bookInputs } from "../../assets/customInput/booksEditInput";
 import Input from "../input/Input";
 import { useForm } from "../../hooks/useForm";
-import { Books, EditSignUpInputs } from "../../types/types";
+import { BookInputs, Books } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store/store";
 import { useParams } from "react-router-dom";
@@ -18,6 +18,7 @@ function EditBookForm() {
         genre: "",
         isbn: "",
         isAvailable: false,
+        description: "",
     });
 
     const { id } = useParams();
@@ -40,6 +41,7 @@ function EditBookForm() {
                 genre: bookToEdit.genre,
                 isbn: bookToEdit.isbn,
                 isAvailable: bookToEdit.isAvailable,
+                description: bookToEdit.description,
             });
         }
     }, [bookToEdit, setForm]);
@@ -67,7 +69,7 @@ function EditBookForm() {
                     form?.isAvailable ? "mb-3 text-success" : "mb-3 text-danger"
                 }
             />
-            {editSignUpInputs.map((input: EditSignUpInputs) => (
+            {bookInputs.map((input: BookInputs) => (
                 <Input
                     key={input.name}
                     {...input}

@@ -14,6 +14,17 @@ export const fetchBookApi = async (): Promise<any> => {
     return data;
 };
 
+// create book
+export const createBookApi = async (payload: any): Promise<any> => {
+    const res = await apiProcessor({
+        url: bookEndPoint + "/create-book",
+        method: HTTPMethods.POST,
+        isPrivate: true,
+        payload,
+    });
+
+    console.log(res);
+};
 // update book
 export const editBookApi = async (
     payload: any,

@@ -1,6 +1,6 @@
 import { ThunkAction } from "@reduxjs/toolkit";
 import { RootState } from "../../redux/store/store";
-import { editBookApi, fetchBookApi } from "./bookApi";
+import { createBookApi, editBookApi, fetchBookApi } from "./bookApi";
 import { addBooks, setBooks } from "./bookSlice";
 
 export const getBooksAdminAction =
@@ -8,6 +8,13 @@ export const getBooksAdminAction =
         const res = await fetchBookApi();
 
         res && dispatch(setBooks(res));
+    };
+
+export const createBookAction =
+    (payload: any): ThunkAction<void, RootState, unknown, any> =>
+    async (dispatch) => {
+        const { data } = await createBookApi(payload);
+        data && dispatch(addBooks(data));
     };
 
 export const updateBookAction =
