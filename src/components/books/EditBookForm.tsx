@@ -21,8 +21,10 @@ function EditBookForm() {
         description: "",
         slug: "",
     });
+    console.log(form);
 
     const { id, slug } = useParams();
+
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -58,6 +60,8 @@ function EditBookForm() {
     useEffect(() => {
         if (form.slug !== slug) {
             navigate(`/user/edit-book/${form.slug}/${id}`);
+        } else {
+            navigate(`/user/edit-book/${slug}/${id}`);
         }
     }, [form.slug, id, navigate]);
 

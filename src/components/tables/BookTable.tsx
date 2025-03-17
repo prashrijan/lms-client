@@ -26,7 +26,7 @@ function BookTable() {
         setBookToDeleteId(id);
         setShowDeleteModal(!showDeleteModal);
     };
-
+    console.log(books);
     return (
         <>
             <div className="d-flex justify-content-between">
