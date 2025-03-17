@@ -38,15 +38,8 @@ function EditBookForm() {
     useEffect(() => {
         if (bookToEdit) {
             setForm({
-                title: bookToEdit.title,
-                author: bookToEdit.author,
-                thumbnail: bookToEdit.thumbnail,
+                ...bookToEdit,
                 publishedYear: bookToEdit.publishedYear as any,
-                genre: bookToEdit.genre,
-                isbn: bookToEdit.isbn,
-                isAvailable: bookToEdit.isAvailable,
-                description: bookToEdit.description,
-                slug: bookToEdit.slug,
             });
         }
     }, [bookToEdit, setForm]);
@@ -57,11 +50,10 @@ function EditBookForm() {
         dispatch(updateBookAction(form, id));
     };
 
+    // if form.slug is available and form.slug != slug navigate to the updated slug
     useEffect(() => {
-        if (form.slug !== slug) {
-            navigate(`/user/edit-book/${form.slug}/${id}`);
-        } else {
-            navigate(`/user/edit-book/${slug}/${id}`);
+        if (form.slug && form.slug !== slug) {
+            navigate(`/user/edit-book/${form.slug}/${id}`, { replace: true });
         }
     }, [form.slug, id, navigate]);
 
