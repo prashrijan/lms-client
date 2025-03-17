@@ -3,16 +3,16 @@ import { Button, Table } from "react-bootstrap";
 import { Books } from "../../types/types";
 import Input from "../input/Input";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    deleteBookAction,
-    getBooksAdminAction,
-} from "../../features/books/bookAction";
+import { getBooksAdminAction } from "../../features/books/bookAction";
 import { RootState } from "../../redux/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DeleteModal from "../modals/DeleteModal";
 
 function BookTable() {
     const dispatch = useDispatch<any>();
+    const [bookToDeleteId, setBookToDeleteId] = useState<string>("");
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
     const booksObj = useSelector((state: RootState) => state.booksInfo);
 
@@ -22,9 +22,9 @@ function BookTable() {
         dispatch(getBooksAdminAction());
     }, []);
 
-    const handleDelete = (id: string): void => {
-        console.log(id);
-        dispatch(deleteBookAction(id));
+    const openModal = (id: string): void => {
+        setBookToDeleteId(id);
+        setShowDeleteModal(!showDeleteModal);
     };
 
     return (
@@ -47,6 +47,16 @@ function BookTable() {
                     readOnly={!books.length}
                 />
             </div>
+
+            {showDeleteModal ? (
+                <DeleteModal
+                    id={bookToDeleteId}
+                    show={showDeleteModal}
+                    onHide={() => setShowDeleteModal(false)}
+                />
+            ) : (
+                ""
+            )}
 
             {books.length != 0 ? (
                 <Table striped bordered hover>
@@ -89,7 +99,9 @@ function BookTable() {
                                     </p>
                                 </td>
                                 <td>
-                                    <Link to={`/user/edit-book/${book._id}`}>
+                                    <Link
+                                        to={`/user/edit-book/${book.slug}/${book._id}`}
+                                    >
                                         <Button
                                             variant="outline-dark"
                                             className="me-2"
@@ -100,7 +112,7 @@ function BookTable() {
 
                                     <Button
                                         variant="outline-danger"
-                                        onClick={() => handleDelete(book._id)}
+                                        onClick={() => openModal(book._id)}
                                     >
                                         Delete
                                     </Button>

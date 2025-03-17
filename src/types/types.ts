@@ -65,6 +65,7 @@ export type Books = {
     averageRating: number;
     createdAt: Date;
     updatedAt: Date;
+    slug: string;
     __v: number;
 };
 

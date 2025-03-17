@@ -5,7 +5,7 @@ import { useForm } from "../../hooks/useForm";
 import { BookInputs, Books } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store/store";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { updateBookAction } from "../../features/books/bookAction";
 
@@ -19,10 +19,12 @@ function EditBookForm() {
         isbn: "",
         isAvailable: false,
         description: "",
+        slug: "",
     });
 
-    const { id } = useParams();
+    const { id, slug } = useParams();
     const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
 
     const booksObj = useSelector((state: RootState) => state.booksInfo) as {
         books: Books[];
@@ -42,6 +44,7 @@ function EditBookForm() {
                 isbn: bookToEdit.isbn,
                 isAvailable: bookToEdit.isAvailable,
                 description: bookToEdit.description,
+                slug: bookToEdit.slug,
             });
         }
     }, [bookToEdit, setForm]);
@@ -51,6 +54,12 @@ function EditBookForm() {
 
         dispatch(updateBookAction(form, id));
     };
+
+    useEffect(() => {
+        if (form.slug !== slug) {
+            navigate(`/user/edit-book/${form.slug}/${id}`);
+        }
+    }, [form.slug, id, navigate]);
 
     if (!bookToEdit) {
         return <p>Loading book data...</p>;

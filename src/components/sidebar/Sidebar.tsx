@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaUsers } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { RiFolderHistoryLine } from "react-icons/ri";
+import { RiFolderHistoryLine, RiStarSmileFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -33,7 +33,7 @@ const Sidebar = () => {
                     to="/user/user-list"
                 >
                     <FaUsers />
-                    All Users
+                    Users
                 </Link>
             </div>
             <div className="p-2">
@@ -42,7 +42,16 @@ const Sidebar = () => {
                     to="/user/borrow"
                 >
                     <RiFolderHistoryLine />
-                    Borrow History
+                    Borrows
+                </Link>
+            </div>
+            <div className="p-2">
+                <Link
+                    className="nav-link d-flex align-items-center gap-1"
+                    to="/user/reviews"
+                >
+                    <RiStarSmileFill />
+                    Reviews
                 </Link>
             </div>
             <div className="p-2">
