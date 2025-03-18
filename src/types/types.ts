@@ -23,7 +23,6 @@ type BookFormKeys =
     | "author"
     | "genre"
     | "publishedYear"
-    | "thumbnail"
     | "isbn"
     | "description";
 
@@ -58,7 +57,7 @@ export type Books = {
     genre: string;
     publishedYear: number;
     isbn: string;
-    thumbnail: string;
+    thumbnail: string | File;
     description: string;
     isAvailable: boolean;
     expectedAvailable: Date | null;

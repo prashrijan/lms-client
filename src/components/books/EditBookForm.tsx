@@ -39,6 +39,10 @@ function EditBookForm() {
             setForm({
                 ...bookToEdit,
                 publishedYear: bookToEdit.publishedYear as any,
+                thumbnail:
+                    typeof bookToEdit.thumbnail === "string"
+                        ? bookToEdit.thumbnail
+                        : "",
             });
         }
     }, [bookToEdit, setForm]);
@@ -84,6 +88,28 @@ function EditBookForm() {
                     disabled={input.name === "isbn"}
                 />
             ))}
+            <div className="my-3">
+                <img
+                    src={
+                        import.meta.env.VITE_BASE_API_URL + "/" + form.thumbnail
+                    }
+                    alt="thumbnail"
+                    width={"200px"}
+                />
+                <p className="text-danger py-1">
+                    {form.thumbnail.split("-")[2]}
+                </p>
+            </div>
+            <Form.Group className="my-2">
+                <Form.Label>Change Thumbnail</Form.Label>
+                <Form.Control
+                    type="file"
+                    name="thumbnail"
+                    required
+                    accept="image/*"
+                />
+            </Form.Group>
+
             <Button variant="success" className="w-100" type="submit">
                 Save
             </Button>
