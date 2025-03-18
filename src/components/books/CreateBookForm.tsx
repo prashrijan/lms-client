@@ -43,7 +43,8 @@ function CreateBookForm() {
         }
 
         dispatch(createBookAction(formData));
-        setForm(formInitialState);
+        setThumbnail(undefined);
+        setForm((prevForm) => ({ ...prevForm, thumbnail: "" }));
     };
 
     console.log(thumbnail);

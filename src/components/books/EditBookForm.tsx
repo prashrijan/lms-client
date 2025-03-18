@@ -6,7 +6,7 @@ import { BookInputs, Books } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store/store";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { updateBookAction } from "../../features/books/bookAction";
 import { getOriginalFileName } from "../../utils/getOriginalFileName";
 
@@ -32,6 +32,7 @@ function EditBookForm() {
         books: Books[];
     };
     const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [bookToEdit] = booksObj?.books.filter((book) => book._id == id);
 
@@ -69,9 +70,11 @@ function EditBookForm() {
             formData.append("thumbnail", thumbnail);
         }
 
-        console.log(formData);
-
         dispatch(updateBookAction(formData, id));
+
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
     };
 
     // if form.slug is available and form.slug != slug navigate to the updated slug
@@ -137,6 +140,7 @@ function EditBookForm() {
                     onChange={handleImageChange}
                     name="thumbnail"
                     accept="image/*"
+                    ref={fileInputRef}
                 />
             </Form.Group>
 
