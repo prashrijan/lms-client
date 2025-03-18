@@ -6,6 +6,7 @@ import { bookInputs } from "../../assets/customInput/booksEditInput";
 
 import { createBookAction } from "../../features/books/bookAction";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 function CreateBookForm() {
     const formInitialState = {
@@ -19,12 +20,20 @@ function CreateBookForm() {
     };
     const { form, setForm, handleChange } = useForm(formInitialState);
 
+    console.log(form);
     const dispatch = useDispatch<any>();
+
+    // works as encType = multi/part form data
+    const formData = new FormData();
+
+    for (let key in form) {
+        formData.append(key, form[key as keyof typeof form]);
+    }
 
     const handleSubmit = (e: React.SyntheticEvent): void => {
         e.preventDefault();
 
-        dispatch(createBookAction(form));
+        dispatch(createBookAction(formData));
         setForm(formInitialState);
     };
     return (
@@ -34,7 +43,9 @@ function CreateBookForm() {
                     key={input.name}
                     {...input}
                     onChange={handleChange}
-                    value={form[input.name]}
+                    {...(input.type === "file"
+                        ? {}
+                        : { value: form[input.name] })}
                 />
             ))}
             <Button variant="success" className="w-100" type="submit">

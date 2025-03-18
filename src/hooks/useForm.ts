@@ -6,11 +6,17 @@ const handleOnChange = <T>(
 
     setForm: React.Dispatch<React.SetStateAction<T>>
 ) => {
-    let { name, value, checked } = e.target;
+    let { name, value, checked, files } = e.target;
+    console.log(name, value, files);
 
     setForm((prevForm) => ({
         ...prevForm,
-        [name]: name === "isAvailable" ? checked : value,
+        [name]:
+            name === "isAvailable"
+                ? checked
+                : name === "thumbnail"
+                ? files?.[0] ?? null
+                : value,
     }));
 };
 

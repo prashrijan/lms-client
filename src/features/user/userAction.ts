@@ -29,14 +29,12 @@ export const autoLoginUser =
             const accessToken: token = sessionStorage.getItem("accessToken");
 
             if (accessToken) {
-                console.log("access");
                 dispatch(fetchUserAction());
                 return;
             }
 
             const refreshToken: token = localStorage.getItem("refreshToken");
             if (refreshToken) {
-                console.log("refresh");
                 const { data } = await refreshTokenApi();
                 sessionStorage.setItem("accessToken", data);
                 dispatch(fetchUserAction());

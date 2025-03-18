@@ -32,7 +32,6 @@ function SignIn() {
                 loadingRef.current = false;
             }, 2000);
         } else {
-            console.log("here");
             loadingRef.current = false;
         }
     }, [user?._id, navigate, dispatch]);
@@ -71,7 +70,6 @@ function SignIn() {
         }
     };
 
-    console.log(loadingRef);
     return loadingRef.current ? (
         <HashLoader />
     ) : (

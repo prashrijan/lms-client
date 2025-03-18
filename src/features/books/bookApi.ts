@@ -22,8 +22,7 @@ export const createBookApi = async (payload: any): Promise<any> => {
         isPrivate: true,
         payload,
     });
-
-    console.log(res);
+    return res;
 };
 // update book
 export const editBookApi = async (

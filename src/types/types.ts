@@ -72,7 +72,7 @@ export type Books = {
 export type BookInputs = {
     label: string;
     name: BookFormKeys;
-    type: "text" | "number" | "password";
+    type: "text" | "number" | "password" | "file";
     required?: boolean;
     placeholder?: string;
 };

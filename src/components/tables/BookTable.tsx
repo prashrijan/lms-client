@@ -26,7 +26,7 @@ function BookTable() {
         setBookToDeleteId(id);
         setShowDeleteModal(!showDeleteModal);
     };
-    console.log(books);
+
     return (
         <>
             <div className="d-flex justify-content-between">
@@ -74,7 +74,11 @@ function BookTable() {
                                 <td>{index + 1}</td>
                                 <td>
                                     <img
-                                        src="/openheimer.jpg"
+                                        src={
+                                            import.meta.env.VITE_BASE_API_URL +
+                                            "/" +
+                                            book.thumbnail
+                                        }
                                         alt={`${book.title}-thumbnail`}
                                         height={"100px"}
                                     />

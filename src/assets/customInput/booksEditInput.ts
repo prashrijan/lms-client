@@ -14,7 +14,7 @@ export const bookInputs: BookInputs[] = [
     {
         label: "Thumbnail",
         name: "thumbnail",
-        type: "text",
+        type: "file",
     },
     {
         label: "Genre",

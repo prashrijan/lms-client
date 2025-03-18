@@ -21,7 +21,6 @@ function EditBookForm() {
         description: "",
         slug: "",
     });
-    console.log(form);
 
     const { id, slug } = useParams();
 
@@ -79,7 +78,9 @@ function EditBookForm() {
                     key={input.name}
                     {...input}
                     onChange={handleChange}
-                    value={form[input.name]}
+                    {...(input.type === "file"
+                        ? {}
+                        : { value: form[input.name] })}
                     disabled={input.name === "isbn"}
                 />
             ))}
