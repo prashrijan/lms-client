@@ -21,6 +21,7 @@ export const createBookApi = async (payload: any): Promise<any> => {
         method: HTTPMethods.POST,
         isPrivate: true,
         payload,
+        contentType: "multpart/form-data",
     });
     return res;
 };
@@ -31,9 +32,10 @@ export const editBookApi = async (
 ): Promise<any> => {
     const res = await apiProcessor({
         url: bookEndPoint + `/update-book/${id}`,
-        method: HTTPMethods.POST,
+        method: HTTPMethods.PATCH,
         isPrivate: true,
         payload,
+        contentType: "multipart/form-data",
     });
     return res;
 };

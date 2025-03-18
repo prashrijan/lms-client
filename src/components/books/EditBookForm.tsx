@@ -6,8 +6,9 @@ import { BookInputs, Books } from "../../types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../../redux/store/store";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { updateBookAction } from "../../features/books/bookAction";
+import { getOriginalFileName } from "../../utils/getOriginalFileName";
 
 function EditBookForm() {
     const { form, setForm, handleChange } = useForm({
@@ -17,7 +18,7 @@ function EditBookForm() {
         publishedYear: "",
         genre: "",
         isbn: "",
-        isAvailable: false,
+        isAvailable: "Not Available",
         description: "",
         slug: "",
     });
@@ -30,6 +31,7 @@ function EditBookForm() {
     const booksObj = useSelector((state: RootState) => state.booksInfo) as {
         books: Books[];
     };
+    const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
 
     const [bookToEdit] = booksObj?.books.filter((book) => book._id == id);
 
@@ -43,14 +45,33 @@ function EditBookForm() {
                     typeof bookToEdit.thumbnail === "string"
                         ? bookToEdit.thumbnail
                         : "",
+                isAvailable:
+                    bookToEdit.isAvailable === "Active"
+                        ? "Active"
+                        : "Not Available",
             });
         }
-    }, [bookToEdit, setForm]);
+    }, [bookToEdit]);
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        const formData = new FormData();
 
-        dispatch(updateBookAction(form, id));
+        for (let key in form) {
+            if (
+                form[key as keyof typeof form] !== null &&
+                form[key as keyof typeof form] !== ""
+            ) {
+                formData.append(key, form[key as keyof typeof form]);
+            }
+        }
+        if (thumbnail) {
+            formData.append("thumbnail", thumbnail);
+        }
+
+        console.log(formData);
+
+        dispatch(updateBookAction(formData, id));
     };
 
     // if form.slug is available and form.slug != slug navigate to the updated slug
@@ -59,6 +80,12 @@ function EditBookForm() {
             navigate(`/user/edit-book/${form.slug}/${id}`, { replace: true });
         }
     }, [form.slug, id, navigate]);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setThumbnail(e.target.files[0]);
+        }
+    };
 
     if (!bookToEdit) {
         return <p>Loading book data...</p>;
@@ -69,12 +96,14 @@ function EditBookForm() {
             <Form.Check
                 name="isAvailable"
                 onChange={handleChange}
-                checked={form?.isAvailable}
+                checked={form?.isAvailable == "Active"}
                 type="switch"
                 id="custom-switch"
-                label={form?.isAvailable ? "Active" : "Not Available"}
+                label={form?.isAvailable}
                 className={
-                    form?.isAvailable ? "mb-3 text-success" : "mb-3 text-danger"
+                    form?.isAvailable === "Active"
+                        ? "mb-3 text-success"
+                        : "mb-3 text-danger"
                 }
             />
             {bookInputs.map((input: BookInputs) => (
@@ -95,17 +124,18 @@ function EditBookForm() {
                     }
                     alt="thumbnail"
                     width={"200px"}
+                    className="img-thumbnail"
                 />
                 <p className="text-danger py-1">
-                    {form.thumbnail.split("-")[2]}
+                    {getOriginalFileName(form.thumbnail)}
                 </p>
             </div>
             <Form.Group className="my-2">
                 <Form.Label>Change Thumbnail</Form.Label>
                 <Form.Control
                     type="file"
+                    onChange={handleImageChange}
                     name="thumbnail"
-                    required
                     accept="image/*"
                 />
             </Form.Group>

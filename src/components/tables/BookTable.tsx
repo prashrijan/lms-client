@@ -91,13 +91,13 @@ function BookTable() {
                                     <p>{book.author}</p>
                                     <p
                                         className={`${
-                                            book.isAvailable
+                                            book.isAvailable === "Active"
                                                 ? "text-success"
                                                 : "text-danger"
                                         }`}
                                     >
                                         Status :{" "}
-                                        {book.isAvailable
+                                        {book.isAvailable === "Active"
                                             ? "Active"
                                             : "Not Avaialble"}
                                     </p>

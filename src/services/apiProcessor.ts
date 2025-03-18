@@ -8,6 +8,7 @@ export enum HTTPMethods {
     PUT = "PUT",
     POST = "POST",
     DELETE = "DELETE",
+    PATCH = "PATCH",
 }
 
 interface IApi {
@@ -17,6 +18,7 @@ interface IApi {
     showToast?: boolean;
     isPrivate?: boolean;
     isRefreshToken?: boolean;
+    contentType?: string;
 }
 
 const getAccessToken = (): token => {
@@ -33,9 +35,10 @@ export const apiProcessor = async ({
     showToast = true,
     isPrivate = false,
     isRefreshToken = false,
+    contentType = "application/json",
 }: IApi): Promise<any> => {
     try {
-        const headers: { authorization?: token } = {};
+        const headers: { authorization?: token; "Content-Type"?: string } = {};
         let token: token = null;
         if (isPrivate) {
             if (isRefreshToken) {
@@ -46,6 +49,7 @@ export const apiProcessor = async ({
         }
 
         headers.authorization = token;
+        headers["Content-Type"] = contentType;
         const { data } = await axios({
             url,
             method,
@@ -72,7 +76,7 @@ export const apiProcessor = async ({
                 error.message ||
                 "An error occured please try again.";
 
-            if (error.status == 500 || errorMessage == "jwt expired") {
+            if (error.status == 500 && errorMessage == "jwt expired") {
                 // call api to get new accessJWT
                 const { data } = await refreshTokenApi();
 
@@ -85,7 +89,7 @@ export const apiProcessor = async ({
                     isPrivate,
                     isRefreshToken,
                 });
-            } else {
+            } else if (error.status == 404) {
                 sessionStorage.removeItem("accessToken");
                 localStorage.removeItem("refreshToken");
             }

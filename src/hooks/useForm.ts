@@ -14,6 +14,8 @@ const handleOnChange = <T>(
         [name]:
             name === "isAvailable"
                 ? checked
+                    ? "Active"
+                    : "Not Available"
                 : name === "thumbnail"
                 ? files?.[0] ?? null
                 : value,

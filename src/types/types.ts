@@ -59,7 +59,7 @@ export type Books = {
     isbn: string;
     thumbnail: string | File;
     description: string;
-    isAvailable: boolean;
+    isAvailable: string;
     expectedAvailable: Date | null;
     averageRating: number;
     createdAt: Date;
