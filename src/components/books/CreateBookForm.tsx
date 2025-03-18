@@ -6,7 +6,7 @@ import { bookInputs } from "../../assets/customInput/booksEditInput";
 
 import { createBookAction } from "../../features/books/bookAction";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useReducer, useRef, useState } from "react";
 
 function CreateBookForm() {
     const formInitialState = {
@@ -17,8 +17,9 @@ function CreateBookForm() {
         isbn: "",
         description: "",
     };
-    const { form, setForm, handleChange } = useForm(formInitialState);
+    const { form, resetForm, handleChange } = useForm(formInitialState);
     const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -27,7 +28,6 @@ function CreateBookForm() {
         }
     };
 
-    console.log(form);
     const dispatch = useDispatch<any>();
 
     const handleSubmit = (e: React.SyntheticEvent): void => {
@@ -43,8 +43,10 @@ function CreateBookForm() {
         }
 
         dispatch(createBookAction(formData));
-        setThumbnail(undefined);
-        setForm((prevForm) => ({ ...prevForm, thumbnail: "" }));
+        resetForm();
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
     };
 
     console.log(thumbnail);
@@ -66,6 +68,7 @@ function CreateBookForm() {
                     name="thumbnail"
                     required
                     accept="image/*"
+                    ref={fileInputRef}
                 />
             </Form.Group>
             <Button variant="success" className="w-100" type="submit">
