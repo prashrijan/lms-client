@@ -7,7 +7,7 @@ function DefaultLayout() {
             <Header />
 
             {/* main page */}
-            <main className="main d-flex align-items-center justify-content-center">
+            <main className="main h-100">
                 <Outlet />
             </main>
 

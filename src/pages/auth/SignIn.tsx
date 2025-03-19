@@ -71,38 +71,48 @@ function SignIn() {
     };
 
     return loadingRef.current ? (
-        <HashLoader />
-    ) : (
-        <Form
-            style={{ width: "450px" }}
-            className="card p-3 m-5 shadow-lg"
-            onSubmit={handleSubmit}
+        <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: "45rem" }}
         >
-            <h2 className="text-center">Welcome Back</h2>
-            <hr />
-            {signInInputs.map((input) => (
-                <Input
-                    key={input.name}
-                    {...input}
-                    ref={input.name === "email" ? emailRef : passwordRef}
-                />
-            ))}
-
-            <Button
-                variant="primary"
-                type="submit"
-                // disable the form if there are errors or form is empty
+            <HashLoader />
+        </div>
+    ) : (
+        <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: "45rem" }}
+        >
+            <Form
+                style={{ width: "450px" }}
+                className="card p-3 m-5 shadow-lg"
+                onSubmit={handleSubmit}
             >
-                Login
-            </Button>
+                <h2 className="text-center">Welcome Back</h2>
+                <hr />
+                {signInInputs.map((input) => (
+                    <Input
+                        key={input.name}
+                        {...input}
+                        ref={input.name === "email" ? emailRef : passwordRef}
+                    />
+                ))}
 
-            <div className="text-center my-3">
-                Forgot Password?{" "}
-                <Link to="/forget-password">
-                    <span className="text-primary">Reset Now</span>
-                </Link>
-            </div>
-        </Form>
+                <Button
+                    variant="primary"
+                    type="submit"
+                    // disable the form if there are errors or form is empty
+                >
+                    Login
+                </Button>
+
+                <div className="text-center my-3">
+                    Forgot Password?{" "}
+                    <Link to="/forget-password">
+                        <span className="text-primary">Reset Now</span>
+                    </Link>
+                </div>
+            </Form>
+        </div>
     );
 }
 

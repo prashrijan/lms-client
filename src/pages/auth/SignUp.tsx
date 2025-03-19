@@ -38,13 +38,16 @@ function SignUp() {
     };
 
     return (
-        <div>
+        <div
+            className="d-flex justify-content-center"
+            style={{ height: "45rem" }}
+        >
             {loading ? (
                 <HashLoader />
             ) : (
                 <Form
                     style={{ width: "450px" }}
-                    className="card p-3 m-5 shadow-lg"
+                    className="card p-3 m-5 shadow-lg "
                     onSubmit={handleOnSubmit}
                 >
                     <h2 className="text-center">
