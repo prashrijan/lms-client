@@ -8,14 +8,14 @@ type CustomCarouselItemProps = {
 
 function CustomCarouselItem({ imgSrc, title, text }: CustomCarouselItemProps) {
     return (
-        <Carousel.Item>
-            <img src={imgSrc} className="d-block w-100" alt={title} />
+        <>
+            <img src={imgSrc} />
             <Carousel.Caption className="carousel-caption-bg rounded p-2">
                 <h3>{title}</h3>
                 <hr />
                 <p>{text}</p>
             </Carousel.Caption>
-        </Carousel.Item>
+        </>
     );
 }
 
