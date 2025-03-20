@@ -1,0 +1,11 @@
+.titleContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.line {
+    background-color: #000;
+    flex-grow: 1;
+    height: 2px;
+}

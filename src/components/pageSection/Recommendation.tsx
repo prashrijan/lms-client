@@ -1,5 +1,11 @@
+import SectionTitle from "../sectionTitle/sectionTitle";
+
 function Recommendation() {
-    return <div>Recommendation</div>;
+    return (
+        <div>
+            <SectionTitle title="Recommendation" />
+        </div>
+    );
 }
 
 export default Recommendation;
