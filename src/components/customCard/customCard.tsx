@@ -1,19 +1,38 @@
 import { Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function customCard() {
+type CustomCardProps = {
+    thumbnail: string;
+    title: string;
+    description: string;
+    slug: string;
+    author: string;
+    publishedYear: number;
+};
+
+function CustomCard({
+    thumbnail,
+    title,
+    description,
+    author,
+    publishedYear,
+    slug,
+}: CustomCardProps) {
     return (
-        <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+        <Card style={{ width: "18rem", padding: ".8rem" }}>
+            <Card.Img variant="top" src={thumbnail} />
+            <Card.Body className="text-center">
+                <Card.Title>{title}</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    {author} - {publishedYear}
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Card.Text>{description}</Card.Text>
+                <Link to={slug}>
+                    <Button variant="dark">View More</Button>
+                </Link>
             </Card.Body>
         </Card>
     );
 }
 
-export default customCard;
+export default CustomCard;
