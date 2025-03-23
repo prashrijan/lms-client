@@ -29,7 +29,7 @@ export default function AppRoutes() {
                 <Route path="login" element={<SignIn />} />
                 <Route path="activate-user" element={<VerifyUser />} />
                 <Route path="forget-password" element={<ForgotPassword />} />
-                <Route path="books" element={<BookLandingPage />} />
+                <Route path="book/:slug" element={<BookLandingPage />} />
             </Route>
 
             {/* private routes */}
@@ -38,7 +38,6 @@ export default function AppRoutes() {
                 <Route path="books" element={<Books />} />
                 <Route path="new-book" element={<NewBookPage />} />
                 <Route path="edit-book/:slug/:id/" element={<EditBookPage />} />
-                <Route path="book-landing" element={<BookLandingPage />} />
                 <Route path="reviews" element={<ReviewsPage />} />
                 <Route path="user-list" element={<UserPage />} />
                 <Route path="borrow" element={<BorrowPage />} />

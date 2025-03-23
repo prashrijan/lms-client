@@ -28,6 +28,7 @@ function JustIn() {
             <div className="d-flex gap-5 flex-wrap flex-grow-1">
                 {justInBooks.map((book) => (
                     <CustomCard
+                        key={book._id}
                         thumbnail={
                             typeof book.thumbnail === "string"
                                 ? book.thumbnail

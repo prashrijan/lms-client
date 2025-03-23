@@ -19,7 +19,6 @@ function BestRead() {
 
         bestReadBooks = sorted.slice(0, 4);
     }
-    console.log(bestReadBooks);
 
     return (
         <div>
@@ -27,6 +26,7 @@ function BestRead() {
             <div className="d-flex gap-5 flex-wrap flex-grow-1">
                 {bestReadBooks.map((book) => (
                     <CustomCard
+                        key={book._id}
                         thumbnail={
                             typeof book.thumbnail == "string"
                                 ? book.thumbnail

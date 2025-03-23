@@ -27,7 +27,7 @@ function CustomCard({
                     {author} - {publishedYear}
                 </Card.Text>
                 <Card.Text>{description}</Card.Text>
-                <Link to={slug}>
+                <Link to={`book/${slug}`}>
                     <Button variant="dark">View More</Button>
                 </Link>
             </Card.Body>
