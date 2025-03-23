@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { token } from "../types/types";
 import { refreshTokenApi } from "./authApi";
 
+// HTTP methods
 export enum HTTPMethods {
     GET = "GET",
     PUT = "PUT",
@@ -11,6 +12,7 @@ export enum HTTPMethods {
     PATCH = "PATCH",
 }
 
+// apis interface
 interface IApi {
     url: string;
     method: HTTPMethods;
@@ -21,13 +23,15 @@ interface IApi {
     contentType?: string;
 }
 
-const getAccessToken = (): token => {
+export const getAccessToken = (): token => {
     return sessionStorage.getItem("accessToken");
 };
-const getRefreshToken = (): token => {
+
+export const getRefreshToken = (): token => {
     return localStorage.getItem("refreshToken");
 };
 
+// calls the api
 export const apiProcessor = async ({
     url,
     method,
@@ -76,7 +80,7 @@ export const apiProcessor = async ({
                 error.message ||
                 "An error occured please try again.";
 
-            if (error.status == 500 && errorMessage == "jwt expired") {
+            if (errorMessage == "jwt expired") {
                 // call api to get new accessJWT
                 const { data } = await refreshTokenApi();
 

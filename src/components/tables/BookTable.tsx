@@ -20,7 +20,7 @@ function BookTable() {
 
     useEffect(() => {
         dispatch(getBooksAdminAction());
-    }, []);
+    }, [dispatch]);
 
     const openModal = (id: string): void => {
         setBookToDeleteId(id);

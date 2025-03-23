@@ -58,6 +58,7 @@ export type Books = {
     publishedYear: number;
     isbn: string;
     thumbnail: string | File;
+    // thumbnail: string | undefined;
     description: string;
     isAvailable: string;
     expectedAvailable: Date | null;

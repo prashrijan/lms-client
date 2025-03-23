@@ -5,14 +5,21 @@ import {
     deleteBookApi,
     editBookApi,
     fetchBookApi,
+    fetchPublicBookApi,
 } from "./bookApi";
-import { addBooks, setBooks } from "./bookSlice";
+import { addBooks, setBooks, setPublicBooks } from "./bookSlice";
 
 export const getBooksAdminAction =
     (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
         const res = await fetchBookApi();
 
         res && dispatch(setBooks(res));
+    };
+export const getBooksPublicAction =
+    (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
+        const res = await fetchPublicBookApi();
+
+        res && dispatch(setPublicBooks(res));
     };
 
 export const createBookAction =

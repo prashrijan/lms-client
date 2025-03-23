@@ -1,52 +1,44 @@
-import SectionTitle from "../sectionTitle/sectionTitle";
-import img1 from "../../assets/img-1.jpg";
-import CustomCard from "../customCard/customCard";
+import SectionTitle from "../sectionTitle/SectionTitle";
+
+import CustomCard from "../customCard/CustomCard";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store/store";
+import { Books } from "../../types/types";
 
 function BestRead() {
+    const publicBooks = useSelector(
+        (store: RootState) => store.booksInfo?.publicBooks
+    );
+
+    let bestReadBooks: Books[] = [];
+
+    if (publicBooks.length) {
+        const sorted = [...publicBooks].sort(
+            (a, b) => b.averageRating - a.averageRating
+        );
+
+        bestReadBooks = sorted.slice(0, 4);
+    }
+    console.log(bestReadBooks);
+
     return (
         <div>
             <SectionTitle title="Best Read" />
             <div className="d-flex gap-5 flex-wrap flex-grow-1">
-                <CustomCard
-                    thumbnail={img1}
-                    title="War and Peace"
-                    author="Prashrijan"
-                    publishedYear={2023}
-                    description="A loving book"
-                    slug="war-and-peace"
-                />
-                <CustomCard
-                    thumbnail={img1}
-                    title="War and Peace"
-                    author="Prashrijan"
-                    publishedYear={2023}
-                    description="A loving book"
-                    slug="war-and-peace"
-                />
-                <CustomCard
-                    thumbnail={img1}
-                    title="War and Peace"
-                    author="Prashrijan"
-                    publishedYear={2023}
-                    description="A loving book"
-                    slug="war-and-peace"
-                />
-                <CustomCard
-                    thumbnail={img1}
-                    title="War and Peace"
-                    author="Prashrijan"
-                    publishedYear={2023}
-                    description="A loving book"
-                    slug="war-and-peace"
-                />
-                <CustomCard
-                    thumbnail={img1}
-                    title="War and Peace"
-                    author="Prashrijan"
-                    publishedYear={2023}
-                    description="A loving book"
-                    slug="war-and-peace"
-                />
+                {bestReadBooks.map((book) => (
+                    <CustomCard
+                        thumbnail={
+                            typeof book.thumbnail == "string"
+                                ? book.thumbnail
+                                : ""
+                        }
+                        title={book.title}
+                        author={book.author}
+                        publishedYear={book.publishedYear}
+                        description={book.description}
+                        slug={book.slug}
+                    />
+                ))}
             </div>
         </div>
     );
