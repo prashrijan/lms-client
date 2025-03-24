@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 const STARS = 5;
@@ -6,9 +7,9 @@ const colors = {
     grey: "a9a9a9",
 };
 
-export const renderStars = (rating: number) => {
+export const RenderStars = (rating: number): JSX.Element[] => {
     const fullStars = Math.floor(STARS);
-    const stars = [];
+    const stars: JSX.Element[] = [];
 
     for (let i = 0; i < fullStars; i++) {
         stars.push(

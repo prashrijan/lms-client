@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { RootState } from "../../redux/store/store";
 import { Books } from "../../types/types";
-import { renderStars } from "../../utils/renderStars";
+import { RenderStars } from "../../utils/RenderStars.tsx";
 import { IoIosArrowBack } from "react-icons/io";
 
 function BookLandingPage() {
@@ -70,7 +70,7 @@ function BookLandingPage() {
 
                     {/* Star Ratings */}
                     <div className="mb-3">
-                        {renderStars(selectedBook?.averageRating ?? 0)}
+                        {RenderStars(selectedBook?.averageRating ?? 0)}
                     </div>
 
                     <p className="text-muted">
