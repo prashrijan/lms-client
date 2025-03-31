@@ -60,3 +60,14 @@ export const deleteBookApi = async (id: string | undefined) => {
 
     return res;
 };
+
+// get single book
+export const getSingleBook = async (slug: string | undefined) => {
+    const res = await apiProcessor({
+        url: bookEndPoint + `/get-book-slug/${slug}`,
+        method: HTTPMethods.GET,
+        showToast: false,
+    });
+
+    return res;
+};

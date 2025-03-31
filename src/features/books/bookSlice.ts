@@ -2,8 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Books } from "../../types/types";
 
 const initialState = {
-    books: [] as Books[],
-    publicBooks: [] as Books[],
+    books: [] as Books[], // for admin
+    publicBooks: [] as Books[], // for public
+    selectedBook: {} as Books, // single book,
 };
 
 const bookSlice = createSlice({
@@ -19,9 +20,13 @@ const bookSlice = createSlice({
         addBooks: (state, action: PayloadAction<any>) => {
             state.books = [...state.books, action.payload];
         },
+        setSelectedBook: (state, action: PayloadAction<any>) => {
+            state.selectedBook = action.payload || {};
+        },
     },
 });
 
-export const { setBooks, addBooks, setPublicBooks } = bookSlice.actions;
+export const { setBooks, addBooks, setPublicBooks, setSelectedBook } =
+    bookSlice.actions;
 
 export default bookSlice.reducer;

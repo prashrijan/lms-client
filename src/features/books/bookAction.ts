@@ -6,8 +6,14 @@ import {
     editBookApi,
     fetchBookApi,
     fetchPublicBookApi,
+    getSingleBook,
 } from "./bookApi";
-import { addBooks, setBooks, setPublicBooks } from "./bookSlice";
+import {
+    addBooks,
+    setBooks,
+    setPublicBooks,
+    setSelectedBook,
+} from "./bookSlice";
 
 export const getBooksAdminAction =
     (): ThunkAction<void, RootState, unknown, any> => async (dispatch) => {
@@ -45,4 +51,12 @@ export const deleteBookAction =
         const { success } = await deleteBookApi(id);
 
         success && dispatch(getBooksAdminAction());
+    };
+
+export const getSingleBookAction =
+    (slug: string | undefined): ThunkAction<void, RootState, unknown, any> =>
+    async (dispatch) => {
+        const { data } = await getSingleBook(slug);
+
+        dispatch(setSelectedBook(data));
     };
