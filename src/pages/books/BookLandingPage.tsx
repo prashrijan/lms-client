@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { Books } from "../../types/types.ts";
 
@@ -13,6 +13,7 @@ import { HashLoader } from "react-spinners";
 function BookLandingPage() {
     const { slug } = useParams();
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const [showLoading, setShowLoading] = useState<boolean>(false);
 
     const selectedBook = useSelector(
@@ -49,10 +50,10 @@ function BookLandingPage() {
                     <Link to={-1 as any} className="text-decoration-none">
                         <Button
                             variant="dark"
-                            className="mb-3 px-4 d-flex align-items-center gap-2 shadow"
+                            className="back-button shadow-sm"
                         >
                             <IoIosArrowBack size={20} />
-                            Go Back
+                            <span>Go Back</span>
                         </Button>
                     </Link>
 

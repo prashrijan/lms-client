@@ -1,0 +1,26 @@
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none !important;
+}
+
+.booklist-container {
+    min-height: 300px;
+}
+
+/* On Card view, center them. On List view, align left nicely */
+.booklist-container.flex-column > * {
+    width: 100%;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Small improvements */
+h5 {
+    font-weight: 600;
+}

@@ -1,7 +1,7 @@
 import { Container, Form, InputGroup, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../assets/readify-logo.png";
-import { IoHome } from "react-icons/io5";
+import { IoBook, IoHome } from "react-icons/io5";
 import { FaSignInAlt } from "react-icons/fa";
 import { HiOutlineLogin, HiOutlineLogout } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,6 +54,13 @@ function Header() {
                             >
                                 <IoHome />
                                 Home
+                            </Link>
+                            <Link
+                                className="nav-link d-flex align-items-center gap-1"
+                                to="/all-books"
+                            >
+                                <IoBook />
+                                Books
                             </Link>
 
                             {user?._id ? (

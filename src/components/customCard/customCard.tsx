@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 type CustomCardProps = {
     thumbnail: string;
     title: string;
-    description: string;
+    description?: string;
     slug: string;
     author: string;
     publishedYear: number;
@@ -19,7 +19,7 @@ function CustomCard({
     slug,
 }: CustomCardProps) {
     return (
-        <Card style={{ width: "18rem", padding: ".8rem" }}>
+        <Card style={{ width: "17.6rem", padding: ".8rem" }}>
             <Card.Img variant="top" src={thumbnail} />
             <Card.Body className="text-center">
                 <Card.Title>{title}</Card.Title>
@@ -27,7 +27,7 @@ function CustomCard({
                     {author} - {publishedYear}
                 </Card.Text>
                 <Card.Text>{description}</Card.Text>
-                <Link to={`book/${slug}`}>
+                <Link to={`/book/${slug}`}>
                     <Button variant="dark">View More</Button>
                 </Link>
             </Card.Body>

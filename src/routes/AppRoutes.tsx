@@ -17,6 +17,7 @@ import {
     SignUp,
     VerifyUser,
     UserPage,
+    AllBooks,
 } from "../pages";
 
 export default function AppRoutes() {
@@ -30,6 +31,7 @@ export default function AppRoutes() {
                 <Route path="activate-user" element={<VerifyUser />} />
                 <Route path="forget-password" element={<ForgotPassword />} />
                 <Route path="book/:slug" element={<BookLandingPage />} />
+                <Route path="all-books" element={<AllBooks />} />
             </Route>
 
             {/* private routes */}
